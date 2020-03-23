@@ -6,7 +6,7 @@ function App() {
   const (users, setUsers) = usestate([]);
 
   useEffect(() => {
-    fetch("url of api")
+    fetch("https://randomuser.me/api/?results=100")
       .then(res => res.json()).then(data => setUsers(data))
       .then(({ results }) => {
         setUsers(results)
