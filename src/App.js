@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import TableFilter from 'react-table-filter';
+import TableFilter from 'react-table-filter';
 import './App.css';
 
 function App() {
   const [users, setUsers] = useState([]);
-  // const [updatedData, setUpdatedData] = useState([]);
+  const [updatedData, setUpdatedData] = useState([]);
 
   useEffect(() => {
     fetch("https://randomuser.me/api/?results=100")
@@ -12,9 +12,9 @@ function App() {
   }, [])
   console.log(users);
 
-  // const filterUpdated = ((newData, filterConfiguration) => {
-  //     setUpdatedData(newData)
-  // });
+  const filterUpdated = ((newData, filterConfiguration) => {
+    setUpdatedData(newData)
+  });
 
   return (
     <React.Fragment>
@@ -26,24 +26,36 @@ function App() {
           <p className="subtitle">
             Sort Employees <strong>by country</strong>!
         </p>
-          <table>
-            <tr>
-              {/* <TableFilter
+          <div className="field">
+            <div className="control has-icons-left">
+              <div className="select">
+                <select>
+                  <option selected>Country</option>
+                  <option>United States</option>
+                  <option>United Kingdom</option>
+                  <option>Finland</option>
+                  <option>Turkey</option>
+                  <option>Australia</option>
+                  <option>Brazil</option>
+                </select>
+              </div>
+              <div className="icon is-small is-left">
+                <i className="fas fa-globe"></i>
+              </div>
+            </div>
+          </div>
+
+          <table>            <tbody>
+
+              <TableFilter
                 rows={users}
-                onFilterUpdate={this._filterUpdated}> */}
-                {/* <th filterkey="name"> */}
-                 <th> Employee Name
-  </th>
-                {/* <th filterkey="location"> */}
+                onFilterUpdate={filterUpdated}>
+              <th> Employee Name</th>
+                <th filterkey="location.country" className="cell" key="location" showsearch={'true'}>
+                  Location</th>
                 <th>
-                  Location
-  </th>
-                <th>
-                  Phone Number
-  </th>
-              {/* </TableFilter> */}
-            </tr>
-            <tbody>
+                  Phone Number</th>
+              </TableFilter>
               {users.map(user => {
                 return (
                   <tr key={user.login.uuid}>
