@@ -4,7 +4,8 @@ import './App.css';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [updatedData, setUpdatedData] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("");
+
 
   useEffect(() => {
     fetch("https://randomuser.me/api/?results=100")
@@ -12,9 +13,9 @@ function App() {
   }, [])
   console.log(users);
 
-  const filterUpdated = ((newData, filterConfiguration) => {
-    setUpdatedData(newData)
-  });
+  const change = (event) => {
+    setSelectedCountry(event.target.value);
+  }
 
   return (
     <React.Fragment>
@@ -29,10 +30,10 @@ function App() {
           <div className="field">
             <div className="control has-icons-left">
               <div className="select">
-                <select>
+                <select id="countryList" onChange={change} value={selectedCountry}>
                   <option selected>Country</option>
-                  <option>United States</option>
-                  <option>United Kingdom</option>
+                  <option value="United States">United States</option>
+                  <option value="United Kingdom">United Kingdom</option>
                   <option>Finland</option>
                   <option>Turkey</option>
                   <option>Australia</option>
