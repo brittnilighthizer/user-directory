@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import TableFilter from 'react-table-filter';
+// import TableFilter from 'react-table-filter';
 import './App.css';
 import { render } from '@testing-library/react';
 
@@ -11,6 +11,7 @@ function RenderFilteredUsers({ filteredUsers }) {
           <td>{user.name.first} {user.name.last}</td>
           <td>{user.location.country}</td>
           <td>{user.phone}</td>
+          <td>{user.location.timezone.offset} : {user.location.timezone.description}</td>
         </tr>
       )
     })
@@ -25,6 +26,7 @@ function RenderAllUsers({ AllUsers }) {
           <td>{user.name.first} {user.name.last}</td>
           <td>{user.location.country}</td>
           <td>{user.phone}</td>
+          <td>{user.location.timezone.offset} : {user.location.timezone.description}</td>
         </tr>
       )
     })
@@ -326,7 +328,8 @@ function App() {
             <tbody>
               <th>Employee Name</th>
               <th>Location</th>
-              <th>Phone Number</th>
+              <th>Contact Number</th>
+              <th>Timezone</th>
               <RenderFilteredUsers filteredUsers={selectedCountry} />
             </tbody >
           </table >
@@ -348,11 +351,12 @@ function App() {
             <tbody>
               <th>Employee Name</th>
               <th>Location</th>
-              <th>Phone Number</th>
+              <th>Contact Number</th>
+              <th>Timezone</th>
               <RenderAllUsers AllUsers={users} />
             </tbody >
           </table >
-        </div>
+        </div> 
       </section>
     )
   }
