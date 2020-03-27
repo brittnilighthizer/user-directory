@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import TableFilter from 'react-table-filter';
 import './App.css';
 import { render } from '@testing-library/react';
 
