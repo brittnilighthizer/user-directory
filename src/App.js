@@ -17,6 +17,21 @@ function RenderFilteredUsers({ filteredUsers }) {
   )
 }
 
+// function RenderSortedUsers({ sortedUsers }) {
+//   return (
+//     sortedUsers.map(user => {
+//       return (
+//         <tr key={user.login.uuid}>
+//           <td>{user.name.first} {user.name.last}</td>
+//           <td>{user.location.country}</td>
+//           <td>{user.phone}</td>
+//           <td>{user.location.timezone.offset} : {user.location.timezone.description}</td>
+//         </tr>
+//       )
+//     })
+//   )
+// }
+
 function RenderAllUsers({ AllUsers }) {
   return (
     AllUsers.map(user => {
@@ -48,6 +63,19 @@ function App() {
     setSelectedCountry(useersSelectedCountry);
     setIfFiltered(true);
   }
+
+  const sort = (event) => {
+    var sortedUsers = users.sort(function(a, b) {
+      var textA = a.name.last.toUpperCase();
+      var textB = b.name.last.toUpperCase();
+      // console.log((textA < textB) ? -1 : (textA > textB) ? 1 : 0)
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      
+  });
+    setUsers(sortedUsers)
+  }
+
+  
 
   function RenderCountryList() {
     return (
@@ -325,7 +353,7 @@ function App() {
           <RenderCountryList />
           <table className="table">
             <tbody>
-              <th>Employee Name</th>
+              <th onClick={sort}>Employee Name</th>
               <th>Location</th>
               <th>Contact Number</th>
               <th>Timezone</th>
@@ -348,7 +376,7 @@ function App() {
           <RenderCountryList />
           <table className="table">
             <tbody>
-              <th>Employee Name</th>
+              <th onClick={sort}>Employee Name</th>
               <th>Location</th>
               <th>Contact Number</th>
               <th>Timezone</th>
