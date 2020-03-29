@@ -17,21 +17,6 @@ function RenderFilteredUsers({ filteredUsers }) {
   )
 }
 
-// function RenderSortedUsers({ sortedUsers }) {
-//   return (
-//     sortedUsers.map(user => {
-//       return (
-//         <tr key={user.login.uuid}>
-//           <td>{user.name.first} {user.name.last}</td>
-//           <td>{user.location.country}</td>
-//           <td>{user.phone}</td>
-//           <td>{user.location.timezone.offset} : {user.location.timezone.description}</td>
-//         </tr>
-//       )
-//     })
-//   )
-// }
-
 function RenderAllUsers({ AllUsers }) {
   return (
     AllUsers.map(user => {
@@ -51,6 +36,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState([]);
   const [ifFiltered, setIfFiltered] = useState(false);
+  const [ifSorted, setIfSorted] = useState(false);
 
   useEffect(() => {
     fetch("https://randomuser.me/api/?results=100")
@@ -65,17 +51,16 @@ function App() {
   }
 
   const sort = (event) => {
-    var sortedUsers = users.sort(function(a, b) {
+    var sortedUsers = users.sort(function (a, b) {
       var textA = a.name.last.toUpperCase();
       var textB = b.name.last.toUpperCase();
       // console.log((textA < textB) ? -1 : (textA > textB) ? 1 : 0)
       return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-      
-  });
-    setUsers(sortedUsers)
-  }
 
-  
+    });
+    setUsers(sortedUsers)
+    setIfSorted(true);
+  }
 
   function RenderCountryList() {
     return (
@@ -349,15 +334,40 @@ function App() {
                   </h1>
           <p className="subtitle">
             Sort Employees <strong>by country</strong>!
+            Sort Employees <strong>by last name by clicking the sort icon</strong>!
                   </p>
           <RenderCountryList />
           <table className="table">
             <tbody>
-              <th onClick={sort}>Employee Name</th>
+              <th onClick={sort}>Employee Name <i className="fas fa-sort-alpha-up"></i></th>
               <th>Location</th>
               <th>Contact Number</th>
               <th>Timezone</th>
               <RenderFilteredUsers filteredUsers={selectedCountry} />
+            </tbody >
+          </table >
+        </div>
+      </section>
+    )
+  } else if (ifSorted) {
+    return (
+      <section className="section" >
+        <div className="container">
+          <h1 className="title">
+            Employee Database
+                      </h1>
+          <p className="subtitle">
+            Sort Employees <strong>by country</strong>!
+            Sort Employees <strong>by last name by clicking the sort icon</strong>!
+                      </p>
+          <RenderCountryList />
+          <table className="table">
+            <tbody>
+              <th onClick={sort}>Employee Name <i className="fas fa-sort-alpha-up"></i></th>
+              <th>Location</th>
+              <th>Contact Number</th>
+              <th>Timezone</th>
+              <RenderAllUsers AllUsers={users} />
             </tbody >
           </table >
         </div>
@@ -372,18 +382,19 @@ function App() {
                       </h1>
           <p className="subtitle">
             Sort Employees <strong>by country</strong>!
+            Sort Employees <strong>by last name by clicking the sort icon</strong>!
                       </p>
           <RenderCountryList />
           <table className="table">
             <tbody>
-              <th onClick={sort}>Employee Name</th>
+              <th onClick={sort}>Employee Name <i className="fas fa-sort-alpha-up"></i></th>
               <th>Location</th>
               <th>Contact Number</th>
               <th>Timezone</th>
               <RenderAllUsers AllUsers={users} />
             </tbody >
           </table >
-        </div> 
+        </div>
       </section>
     )
   }
